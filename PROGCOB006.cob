@@ -1,1 +1,54 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PROGCOB006.
+      ******************************************************************
+      *AUTHOR: CARLOS AMARAL
+      *DATE: 08/28/2021
+      *PURPOSE: LEARN ARITHMETIC ON COBOL
+      ******************************************************************
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
 
+       77 WRK-NUM1     PIC S9(3)V99 VALUE ZEROES.
+       77 WRK-NUM2     PIC S9(3)V99 VALUE ZEROES.
+       77 WRK-RESET    PIC S9(4)V99 VALUE ZEROES.
+       77 WRK-RESULT   PIC S9(4)V99 VALUE ZEROES.
+       77 WRK-REMAIND  PIC S9(4)V99 VALUE ZEROES.
+
+       PROCEDURE DIVISION.
+
+           ACCEPT WRK-NUM1 FROM CONSOLE.
+           ACCEPT WRK-NUM2 FROM CONSOLE.
+
+      *****SUM
+           DISPLAY 'SUM'.
+           ADD WRK-NUM1 WRK-NUM2 TO WRK-RESULT.
+           DISPLAY WRK-NUM1 ' + ' WRK-NUM2 ' = ' WRK-RESULT.
+           MOVE WRK-RESET TO WRK-RESULT.
+
+      *****SUBTRACT
+           DISPLAY 'SUBTRACTION'.
+           SUBTRACT WRK-NUM2 FROM WRK-NUM1 GIVING WRK-RESULT.
+           DISPLAY WRK-NUM1 ' - ' WRK-NUM2 ' = ' WRK-RESULT.
+           MOVE WRK-RESET TO WRK-RESULT.
+
+      *****MULTIPLY
+           DISPLAY 'MULTIPLY'.
+           MULTIPLY WRK-NUM1 BY WRK-NUM2 GIVING WRK-RESULT.
+           DISPLAY WRK-NUM1 ' * ' WRK-NUM2 ' = ' WRK-RESULT.
+           MOVE WRK-RESET TO WRK-RESULT.
+
+      *****DIVISION
+           DISPLAY 'DIVISION'.
+           DIVIDE WRK-NUM1 BY WRK-NUM2 GIVING WRK-RESULT
+               REMAINDER WRK-REMAIND.
+           DISPLAY WRK-NUM1 ' / ' WRK-NUM2 ' = ' WRK-RESULT.
+           DISPLAY "REMAINDER: " WRK-REMAIND.
+           MOVE WRK-RESET TO WRK-RESULT.
+
+           STOP RUN.
+
+       END PROGRAM PROGCOB006.

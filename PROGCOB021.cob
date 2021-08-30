@@ -1,0 +1,58 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PROGCOB021.
+      ******************************************************************
+      *AUTHOR: CARLOS AMARAL
+      *DATE: 08/29/2021
+      *PURPOSE: CALCULAR INVESTIMENTOS DURANTE PERIODO
+      ******************************************************************
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       77  WRK-VLRINICIAL      PIC 9(7)V99         VALUE ZEROES.
+       77  WRK-VLRFINAL        PIC 9(7)V99         VALUE ZEROES.
+       77  WRK-VLRFINAL-ED     PIC $ZZZZZZ9,99     VALUE ZEROES.
+       77  WRK-LUCRO           PIC 9(7)V99         VALUE ZEROES.
+       77  WRK-LUCRO-ED        PIC $ZZZZZZ9,99     VALUE ZEROES.
+       77  WRK-RENDMES         PIC 9(4)V99         VALUE ZEROES.
+       77  WRK-MESES           PIC 9(3)            VALUE ZEROES.
+       77  WRK-TAXAJUROS       PIC 9(3)V999        VALUE ZEROES.
+       PROCEDURE DIVISION.
+       
+           PERFORM 0100-INICIALIZA.
+           IF WRK-MESES NOT EQUAL 0
+               PERFORM 0200-PROCESSA
+               PERFORM 0300-FINALIZA
+           ELSE
+               DISPLAY 'IMPOSSIVEL CALCULAR O INVESTIMENTO'
+           END-IF.
+
+           STOP RUN.
+
+       0100-INICIALIZA.
+           
+           DISPLAY "DIGITE O VALOR DO INVESTIMENTO INICIAL: ".
+           ACCEPT WRK-VLRINICIAL.
+           MOVE WRK-VLRINICIAL TO WRK-VLRFINAL.
+           DISPLAY "DIGITE POR QUANTOS MESES FICARA INVESTIDO: ".
+           ACCEPT WRK-MESES.
+           DISPLAY "DIGITE A TAXA DE JUROS AO MES".
+           ACCEPT WRK-TAXAJUROS.
+
+       0200-PROCESSA.
+           PERFORM WRK-MESES TIMES
+               COMPUTE WRK-RENDMES = WRK-VLRFINAL * WRK-TAXAJUROS
+               ADD WRK-RENDMES TO WRK-VLRFINAL
+           END-PERFORM.
+           
+       0300-FINALIZA.
+           MOVE WRK-VLRFINAL TO WRK-VLRFINAL-ED.
+           COMPUTE WRK-LUCRO = WRK-VLRFINAL - WRK-VLRINICIAL.
+           MOVE WRK-LUCRO TO WRK-LUCRO-ED.
+           DISPLAY 'APOS ' WRK-MESES ' MES(ES), VOCE ACUMULOU ' 
+               WRK-VLRFINAL-ED.
+           DISPLAY 'LUCRO DE ' WRK-LUCRO-ED.
+       
+       END PROGRAM PROGCOB021.

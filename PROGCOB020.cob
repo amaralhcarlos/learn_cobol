@@ -1,0 +1,39 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PROGCOB020.
+      ******************************************************************
+      *AUTHOR: CARLOS AMARAL
+      *DATE: 08/29/2021
+      *PURPOSE: ACUMULADOR DE VENDAS USANDO PERFORM - UNTIL
+      ******************************************************************
+       ENVIRONMENT DIVISION.
+       CONFIGURATION SECTION.
+       SPECIAL-NAMES.
+           DECIMAL-POINT IS COMMA.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       77  WRK-VENDA           PIC 9(5)V99         VALUE ZEROES.
+       77  WRK-ACUMVENDA       PIC 9(10)V99        VALUE ZEROES.
+       77  WRK-ACUMVENDA-ED    PIC $ZZZZZZZZZ9,99  VALUE ZEROES.
+       77  WRK-CONTVENDA       PIC 9(3)            VALUE 0.
+       PROCEDURE DIVISION.
+
+           PERFORM 0100-INICIALIZA.
+           PERFORM 0200-PROCESSA UNTIL WRK-VENDA = 0.
+           PERFORM 0300-FINALIZA.
+
+           STOP RUN.
+       
+       0100-INICIALIZA.
+           ACCEPT WRK-VENDA.
+       
+       0200-PROCESSA.
+           ADD 1 TO WRK-CONTVENDA.
+           ADD WRK-VENDA TO WRK-ACUMVENDA.
+           PERFORM 0100-INICIALIZA.
+
+       0300-FINALIZA.
+           MOVE WRK-ACUMVENDA TO WRK-ACUMVENDA-ED.
+           DISPLAY 'VENDAS REALIZADAS....' WRK-CONTVENDA.
+           DISPLAY 'VALOR TOTAL..........' WRK-ACUMVENDA-ED.
+
+       END PROGRAM PROGCOB020.
